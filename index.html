@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Calculator</h1>
+
+  <label for="fNum">First Number</label><input id="fNum" type="text" placeholder="Enter Number" oninput="setFnum(event)"><br><br>
+  <label for="lNum">Second Number</label><input id="lNum" type="text" placeholder="Enter Number" oninput="setLnum(event)">
+<br><br>
+  <button onclick="addNum(event)">Add (+)</button>
+  <button onclick="subNum(event)">Subtract (-)</button>
+  <button onclick="mulNum(event)">Multiply (*)</button>
+  <button onclick="divNum(event)">Divide (/)</button>
+
+    <div id="operation">
+
+    </div>
+    <br><br>
+ <button onclick="showHistory(event)">History</button>
+
+    <div id="history">
+
+    </div>
+
+</body>
+<script>
+    let fNum = 0;
+    let lNum = 0;
+    let result = 0;
+    let numHistory = []
+
+    function setFnum(event = new Event()){
+        fNum = parseInt(event.target.value);
+    }
+
+    function setLnum(event = new Event()){
+        lNum = parseInt(event.target.value);
+    }
+
+    function addNum(event = Event()){
+        const operation = document.getElementById("operation");
+        const heading = document.createElement("h1");
+        heading.innerText = fNum + lNum;
+
+        operation.appendChild(heading);
+
+        result = fNum + lNum;
+        numHistory.push(result);
+    }
+
+    function subNum(event = Event()){
+        const operation = document.getElementById("operation");
+        const heading = document.createElement("h1");
+        heading.innerText = fNum - lNum;
+
+        operation.appendChild(heading);
+
+        result = fNum - lNum;
+        numHistory.push(result);
+    }
+
+    function mulNum(event = Event()){
+        const operation = document.getElementById("operation");
+        const heading = document.createElement("h1");
+        heading.innerText = fNum * lNum;
+
+        operation.appendChild(heading);
+
+        result = fNum * lNum;
+        numHistory.push(result);
+    }
+
+    function divNum(event = Event()){
+        const operation = document.getElementById("operation");
+        const heading = document.createElement("h1");
+        heading.innerText = fNum / lNum;
+
+        operation.appendChild(heading);
+
+        result = fNum / lNum;
+        numHistory.push(result);
+    }
+    
+    function showHistory(event = Event()){
+        for(const result of numHistory){
+            const history = document.getElementById("history");
+            const heading = document.createElement("h6");
+            heading.innerText = result;
+            history.appendChild(heading);
+        }
+    }
+
+</script>
+</html>
+
+<!--
+# Calculator App
+Make a small four function calculator app. Add, Subtract, Multiply, and Divide. The calculator should maintain a list of past operations.
+- The overall design is up to you
+    - You can use a few input fields
+    - You can you a bunch of buttons
+- The application should be a new github repo
+    - It should be hosted on github pages
+    - You will demo your app tomorrow morning
+
+
+
+Add
+Subtract
+Multiply
+Divide
+
+Show history
+
+
+Create buttons for user to select operation type
+
+
+-->
