@@ -13,6 +13,7 @@
   <button onclick="subNum(event)">Subtract (-)</button>
   <button onclick="mulNum(event)">Multiply (*)</button>
   <button onclick="divNum(event)">Divide (/)</button>
+  <button onclick="clearH(event)">Clear</button>
 
     <div id="operation">
 
@@ -20,8 +21,8 @@
     <br><br>
  <button onclick="showHistory(event)">History</button>
 
-    <div id="history">
-
+    <div id="historyContainer">
+        
     </div>
 
 </body>
@@ -29,7 +30,22 @@
     let fNum = 0;
     let lNum = 0;
     let result = 0;
-    let numHistory = []
+    let numHistory = [];
+
+    function addHistory(result) {
+        const currentOperationRow = document.getElementById("operationRow");
+        if (currentOperationRow) {
+            currentOperationRow.remove();
+        }
+        const operation = document.getElementById("operation");
+        const operationRow = document.createElement("div");
+        operationRow.id = "operationRow";
+        const heading = document.createElement("h1");
+        heading.innerText = result;
+        operationRow.appendChild(heading);
+        operation.appendChild(operationRow);
+        numHistory.push(result);
+    }
 
     function setFnum(event = new Event()){
         fNum = parseInt(event.target.value);
@@ -40,56 +56,63 @@
     }
 
     function addNum(event = Event()){
-        const operation = document.getElementById("operation");
         const heading = document.createElement("h1");
         heading.innerText = fNum + lNum;
 
-        operation.appendChild(heading);
-
         result = fNum + lNum;
-        numHistory.push(result);
+        wholeOperation = `${fNum} + ${lNum} = ${result}`;
+        addHistory(wholeOperation);
     }
 
     function subNum(event = Event()){
-        const operation = document.getElementById("operation");
         const heading = document.createElement("h1");
         heading.innerText = fNum - lNum;
 
-        operation.appendChild(heading);
-
         result = fNum - lNum;
-        numHistory.push(result);
+        wholeOperation = `${fNum} - ${lNum} = ${result}`;
+        addHistory(wholeOperation);
     }
 
     function mulNum(event = Event()){
-        const operation = document.getElementById("operation");
         const heading = document.createElement("h1");
         heading.innerText = fNum * lNum;
 
-        operation.appendChild(heading);
-
         result = fNum * lNum;
-        numHistory.push(result);
+        wholeOperation = `${fNum} * ${lNum} = ${result}`;
+        addHistory(wholeOperation);
     }
 
     function divNum(event = Event()){
-        const operation = document.getElementById("operation");
         const heading = document.createElement("h1");
         heading.innerText = fNum / lNum;
 
-        operation.appendChild(heading);
-
         result = fNum / lNum;
-        numHistory.push(result);
+        wholeOperation = `${fNum} / ${lNum} = ${result}`;
+        // result = fNum + "/" + lNum + " = " + result; // old way
+        addHistory(wholeOperation);
     }
     
     function showHistory(event = Event()){
+        const currentHistoryELement =  document.getElementById("historyContents");
+        if (currentHistoryELement) {
+            currentHistoryELement.remove();
+        }
+        const historyContainer = document.getElementById("historyContainer");
+        const historyContents = document.createElement("div");
+        historyContents.id = "historyContents";
         for(const result of numHistory){
-            const history = document.getElementById("history");
+            const historyRow = document.createElement("div");
             const heading = document.createElement("h6");
             heading.innerText = result;
-            history.appendChild(heading);
+            historyRow.appendChild(heading);
+            historyContents.appendChild(historyRow);
         }
+        historyContainer.appendChild(historyContents);
+    }
+
+    function clearH(event = Event()){
+        numHistory = [];
+        document.getElementById("historyContents").remove();
     }
 
 </script>
